@@ -9,21 +9,25 @@ class App {
     
     protected $params = array();
 
+
     public function __construct() {
         if (isset($_SESSION['userId'])) {
             $this->method = 'logged';
         }
         
         $url = $this->parseUrl();
-        if (file_exists('app/controllers/' . ucfirst($url[0]) . 'Controller.php'))
+        
+        if (file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php'))
         {
             $this->controller = $url[0];
             unset($url[0]);
         }
         
-        require_once 'app/controllers/' . ucfirst($this->controller) . 'Controller.php';
+        $this->controller = ucfirst($this->controller) . 'Controller';
         
-        $this->controller = new ucfirst($this->controller) . 'Controller';
+        require_once '../app/controllers/' . $this->controller . '.php';
+        
+        $this->controller = new $this->controller;
         
         if (isset($url[1])) {
             if (method_exists($this->controller, $url[1])) {

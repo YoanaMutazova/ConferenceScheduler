@@ -1,7 +1,6 @@
 <?php
 
-require_once('../app/includes/config.php');
+require_once '../app/includes/config.php';
+require_once '../app/init.php';
 
-echo $_SERVER['REQUEST_URI'];
 $app = new App;
-echo 'HI!';

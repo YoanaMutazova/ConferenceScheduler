@@ -3,9 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/controllers/BaseController.php</file>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/public/index.php</file>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/App.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/userModel.php</file>
         </group>
     </open-files>
 </project-private>

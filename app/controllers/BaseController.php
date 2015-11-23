@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of BaseController
- *
- * @author Yoana
- */
 abstract class BaseController {
     
     protected $model;
