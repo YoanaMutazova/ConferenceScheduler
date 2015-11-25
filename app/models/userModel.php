@@ -3,6 +3,7 @@ declare (strict_types=1);
 
 require_once '/BindingModels/LoginBindingModel.php';
 require_once '/BindingModels/RegisterBindingModel.php';
+require_once '/ViewModels/ProfileViewModel.php';
 
 class userModel 
 {   
@@ -11,6 +12,37 @@ class userModel
             $this->$method($bindingModel);
         }
         $this->$method();
+    }
+    
+    public function login(LoginBindingModel $model)
+    {
+        $username = $model->getUsername();
+        $password = $model->getPassword();
+        
+        $db = Database::getInstance('app');
+        
+        $result = $db->prepare("
+            SELECT
+                id, username, password
+            FROM
+                users
+            WHERE username = ?
+        ");
+
+        $result->execute([$username]);
+
+        if ($result->rowCount() <= 0) {
+            throw new \Exception('Invalid username');
+        }
+
+        $userRow = $result->fetch();
+
+        if (password_verify($password, $userRow['password'])) {
+            $_SESSION['userId'] = $userRow['id'];
+            header('Location: /ConferenceScheduler/public/home');
+        }
+
+        throw new \Exception('Invalid credentials');
     }
     
     public function register(RegisterBindingModel $model)
@@ -40,7 +72,7 @@ class userModel
                 password_hash($password, PASSWORD_DEFAULT)
             ]
         );
-
+        
         if ($result->rowCount() > 0) {
             $LoginBM = new LoginBindingModel(['username' => $username,'password' => $password]);
             $this->login($LoginBM);
@@ -67,15 +99,8 @@ class userModel
     
     public function profile()
     {
-        $data = $this->getInfo($_SESSION['userId']);  
-        
-        $db = Database::getInstance('app');
-        
-        $result->execute([date("Y/m/d h:i:s"), $_SESSION['userId']]);
-        $result->fetch();
-        
-        $data = $this->getInfo($_SESSION['userId']);
-        $_POST['temp'] = $data;
+        $data = $this->getInfo($_SESSION['userId']);          
+        $viewModel = new ProfileViewModel($data);
     }
     
     public function getInfo($id)
