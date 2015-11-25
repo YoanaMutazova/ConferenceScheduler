@@ -7,7 +7,6 @@ class HomeController extends BaseController
        if (isset($_SESSION['userId'])) {
            header('Location: /ConferenceScheduler/public/home');
        }
-       
        $this->loadView('home/index');
    }
    
@@ -17,8 +16,7 @@ class HomeController extends BaseController
            header('Location: /ConferenceScheduler/public/home');
        }
        
-       
-       //$this->loadView('home/login');
+       $this->loadView('home/login');
        if (isset($_POST['submit'])) {
            $this->loadModel('user', 'login', true);
        }
@@ -28,12 +26,12 @@ class HomeController extends BaseController
    {
         if (isset($_SESSION['userId'])) {
            header('Location: /ConferenceScheduler/public/home');
-       }
-       
-       $this->loadView('home/index');
+        }
+        
+        $this->loadView('home/register');
         if (isset($_POST['submit'])) {
-           $this->loadModel('user', 'register', true);
-       }
+            $this->loadModel('user', 'register', true);
+        }
    }
    
    public function logged()

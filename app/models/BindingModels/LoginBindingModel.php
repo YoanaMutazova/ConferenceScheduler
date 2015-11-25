@@ -1,11 +1,6 @@
 <?php
 declare (strict_types=1);
 
-/**
- * Description of LoginBindingModel
- *
- * @author Yoana
- */
 class LoginBindingModel {
     
     private $username;

@@ -16,7 +16,7 @@ class App {
         }
         
         $url = $this->parseUrl();
-        
+
         if (file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php'))
         {
             $this->controller = $url[0];
