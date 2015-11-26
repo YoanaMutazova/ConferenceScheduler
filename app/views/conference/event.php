@@ -37,6 +37,12 @@
           <input type="text" class="form-control" id="speaker" name="speaker" placeholder="Speaker username">
       </div>
     </div>
+     <div class="form-group">
+      <label for="conference" class="col-lg-2 control-label">Conference</label>
+      <div class="col-lg-10">
+          <input type="text" class="form-control" id="conference" name="conference" placeholder="Conference name">
+      </div>
+    </div>
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
           <button type="reset" class="btn btn-default">Cancel</button>

@@ -8,7 +8,7 @@ class CreateConferenceBindingModel {
     private $hall;
     private $start;
     private $end;
-    
+
     public function __construct(array $params) {
         $this->setName($params['name']);
         $this->setVenue($params['venue']);

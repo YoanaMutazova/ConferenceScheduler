@@ -75,6 +75,7 @@ class userModel
         
         if ($result->rowCount() > 0) {
             $LoginBM = new LoginBindingModel(['username' => $username,'password' => $password]);
+            var_dump($LoginBM);
             $this->login($LoginBM);
         }
 

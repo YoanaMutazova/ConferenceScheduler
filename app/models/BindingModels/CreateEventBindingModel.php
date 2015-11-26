@@ -7,12 +7,14 @@ class CreateEventBindingModel {
     private $start;
     private $end;
     private $speaker;
+    private $conference;
     
     public function __construct(array $params) {
         $this->setDescription($params['description']);
         $this->setStart($params['start']);
         $this->setEnd($params['end']);
         $this->setSpeaker($params['speaker']);
+        $this->setConference($params['conference']);
     }
     
     public function getDescription()
@@ -62,5 +64,18 @@ class CreateEventBindingModel {
     private function setSpeaker(string $speaker)
     {
         $this->speaker = $speaker;
+    }
+    
+    public function getConference()
+    {
+        return $this->conference;
+    }
+    
+    private function setConference(string $conference) 
+    {
+         if (trim($conference) == '') {
+            throw new Exception("Choose conference");
+        }
+        $this->conference = $conference;
     }
 }

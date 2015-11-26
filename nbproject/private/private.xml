@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/BindingModels/ConferenceBindingModel.php</file>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/BindingModels/RegisterBindingModel.php</file>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/controllers/HomeController.php</file>
-            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/controllers/ConferenceController.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/userModel.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/BindingModels/CreateEventBindingModel.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/ViewModels/ProfileViewModel.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/views/home/index.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/models/conferenceModel.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/controllers/UserController.php</file>
+            <file>file:/C:/Bitnami/wampstack-7.0.0RC7-0/apache2/htdocs/ConferenceScheduler/app/views/user/profile.php</file>
         </group>
     </open-files>
 </project-private>
