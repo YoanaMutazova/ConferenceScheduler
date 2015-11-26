@@ -1,5 +1,1 @@
-<?php
-require_once '/../../models/ViewModels/ProfileViewModel.php';
-$model = ProfileViewModel::getData();?>
-<h1>Hello <?php $model['username']?> </h1>
-
+<h1>hello <?= $model->getUsername(); ?></h1>

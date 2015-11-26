@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '/../View.php';
 
 class App {
     
@@ -20,6 +21,7 @@ class App {
         if (file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php'))
         {
             $this->controller = $url[0];
+            View::$controllerName = $this->controller;
             unset($url[0]);
         }
         
@@ -35,7 +37,7 @@ class App {
                 unset($url[1]);
             }
         }
-        
+        View::$actionName = $this->method;
         $this->params = $url ? array_values($url) : array();
         
         call_user_func_array([$this->controller, $this->method], $this->params);

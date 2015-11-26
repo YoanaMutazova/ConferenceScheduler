@@ -3,7 +3,6 @@ declare (strict_types=1);
 
 require_once '/BindingModels/LoginBindingModel.php';
 require_once '/BindingModels/RegisterBindingModel.php';
-require_once '/ViewModels/ProfileViewModel.php';
 
 class userModel 
 {   
@@ -96,28 +95,6 @@ class userModel
     {
         unset($_SESSION['userId']);
         header('Location: /ConferenceScheduler/public/home');
-    }
-    
-    public function profile()
-    {
-        $data = $this->getInfo($_SESSION['userId']);          
-        $viewModel = new ProfileViewModel($data);
-    }
-    
-    public function getInfo($id)
-    {
-        $db = Database::getInstance('app');
-
-        $result = $db->prepare("
-            SELECT
-                id, username, password
-            FROM
-                users
-            WHERE id = ?
-        ");
-
-        $result->execute([$id]);
-        return $result->fetch();
     }
 }
 

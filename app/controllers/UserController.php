@@ -1,14 +1,20 @@
 <?php
+require_once '/../View.php';
+require_once '/../models/ViewModels/ProfileViewModel.php';
 
 class UserController extends BaseController {
     public function profile()
     {
-        if (!isset($_SESSION['userId'])) {
-           header('Location: /ConferenceScheduler/public/home');
-        }
+        $db = Database::getInstance('app');
+
+        $result = $db->prepare("
+            SELECT username FROM users WHERE id = ?");
+
+        $result->execute([$_SESSION['userId']]);
+        $data = $result->fetch();
         
-        $this->loadModel('user', 'profile');
-        $this->loadView('user/profile');
-        unset($_POST['temp']);
+        $model = new ProfileViewModel($data['username']);
+        
+        View::make($model);
     }
 }

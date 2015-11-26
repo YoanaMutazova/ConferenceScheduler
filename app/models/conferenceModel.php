@@ -41,10 +41,10 @@ class conferenceModel
             ]
         );
         
-        if ($result->rowCount() <= 0) {
-            throw new \Exception('Cannot create conference');
+        if ($result->rowCount() > 0) {
+            header('Location: /ConferenceScheduler/public/conference/createEvent');
         }
-        header('Location: /ConferenceScheduler/public/conference/createEvent');
+        throw new \Exception('Cannot create conference');
     }
     
     public function createEvent(CreateEventBindingModel $model)
