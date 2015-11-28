@@ -18,12 +18,13 @@ class conferenceModel
     }
     
     public function createConference(CreateConferenceBindingModel $model)
-    {
+    {  
         $name = $model->getName();
         $venue = $model->getVenue();
         $hall = $model->getHall();
         $start = $model->getStart();
         $end = $model->getEnd();
+        $limit = intval($model->getLimit());
         
         $db = Database::getInstance('app');
         
@@ -31,8 +32,8 @@ class conferenceModel
         
         $result = $db->prepare("
             INSERT INTO conferences 
-            (name, venue, hall, start, end, owner_id)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (name, venue, hall, start, end, owner_id, `limit`, users)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 0)
         ");
         $result->execute(
             [
@@ -41,7 +42,8 @@ class conferenceModel
                 $hall,
                 date_format(date_create($start), 'Y-m-d H:i:s'),
                 date_format(date_create($end), 'Y-m-d H:i:s'),
-                $ownerId
+                $ownerId,
+                $limit
             ]
         );
         
@@ -154,5 +156,25 @@ class conferenceModel
         $conference = $db->prepare("INSERT INTO users_conferences (user_id, conference_id)
             VALUES (?, ?)");
         $conference->execute([$_SESSION['userId'],$id]);
+        
+        $conferenceUsers = $db->prepare("SELECT limit, users FROM conferences WHERE id = ?");
+        $conferenceUsers->execute([$id]);
+//        if $conferenceUsers['users'] < $conferenceUsers['limit'] -> limit++
+        
+        $newConferenceUsers = $db->prepare("UPDATE conferences SET users = ? WHERE id = ?");
+        $newConferenceUsers->execute([$numberOfUsers, $id]);
+    }
+    
+    public function mustVisit(){
+        $db = Database::getInstance('app');
+        
+        $conferences = $db->prepare("
+                SELECT name, start, end
+                FROM users u 
+                JOIN users_conferences uc ON u.id = uc.user_id
+                JOIN conferences c ON uc.conference_id = c.id
+                WHERE u.id = ?");
+        $conferences->execute([$_SESSION['userId']]);
+        $result = $conferences->fetchAll();
     }
 }

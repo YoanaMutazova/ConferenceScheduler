@@ -37,6 +37,12 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="limit" class="col-lg-2 control-label">Users limit</label>
+      <div class="col-lg-10">
+          <input type="text" class="form-control" id="limit" name="limit" placeholder="Maximum number of users">
+      </div>
+    </div>
+    <div class="form-group">
       <label for="start" class="col-lg-2 control-label">Start</label>
       <div class="col-lg-10">
           <input type="text" class="form-control" id="start" name="start" placeholder="Start">

@@ -38,7 +38,7 @@ class userModel
 
         if (password_verify($password, $userRow['password'])) {
             $_SESSION['userId'] = $userRow['id'];
-            header('Location: /ConferenceScheduler/public/home');
+            header('Location: /ConferenceScheduler/public/user/profile');
         }
 
         throw new \Exception('Invalid credentials');
@@ -93,7 +93,7 @@ class userModel
     public function logout()
     {
         unset($_SESSION['userId']);
-        header('Location: /ConferenceScheduler/public/home');
+        header('Location: /ConferenceScheduler/public/home/index');
     }
 }
 

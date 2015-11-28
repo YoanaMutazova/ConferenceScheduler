@@ -8,6 +8,7 @@ class CreateConferenceBindingModel {
     private $hall;
     private $start;
     private $end;
+    private $limit;
 
     public function __construct(array $params) {
         $this->setName($params['name']);
@@ -15,6 +16,7 @@ class CreateConferenceBindingModel {
         $this->setHall($params['hall']);
         $this->setStart($params['start']);
         $this->setEnd($params['end']);
+        $this->setLimit($params['limit']);
     }
     
     public function getName()
@@ -83,5 +85,18 @@ class CreateConferenceBindingModel {
             throw new Exception("Conference cannot end befor it has started");
         }
         $this->end = $end;
+    }
+    
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+    
+    private function setLimit(string $limit)
+    {
+        if (trim($limit) == '') {
+            throw new Exception("Empty limit");
+        }
+        $this->limit = $limit;
     }
 }

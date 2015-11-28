@@ -44,4 +44,14 @@ class ConferenceController extends BaseController {
         $this->loadModel('conference', 'all');
         $this->loadView('conference/all');
     }
+    
+    public function mustVisit()
+    {
+        if (!isset($_SESSION['userId'])) {
+            header("Location: /ConferenceScheduler/public/home");
+        }
+        require_once '/../models/conferenceModel.php';
+        $this->loadModel('conference', 'all');
+        $this->loadView('conference/mustVisit');
+    }
 }

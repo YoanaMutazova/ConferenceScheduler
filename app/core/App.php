@@ -13,34 +13,34 @@ class App {
 
     public function __construct() {
         if (isset($_SESSION['userId'])) {
-            $this->method = 'logged';
+            $this->method = 'profile';
         }
-        
-        $url = $this->parseUrl();
+            $url = $this->parseUrl();
 
-        if (file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php'))
-        {
-            $this->controller = $url[0];
-            View::$controllerName = $this->controller;
-            unset($url[0]);
-        }
-        
-        $this->controller = ucfirst($this->controller) . 'Controller';
-        
-        require_once '../app/controllers/' . $this->controller . '.php';
-        
-        $this->controller = new $this->controller;
-        
-        if (isset($url[1])) {
-            if (method_exists($this->controller, $url[1])) {
-                $this->method = $url[1];
-                unset($url[1]);
+            if (file_exists('../app/controllers/' . ucfirst($url[0]) . 'Controller.php'))
+            {
+                $this->controller = $url[0];
+                View::$controllerName = $this->controller;
+                unset($url[0]);
             }
-        }
-        View::$actionName = $this->method;
-        $this->params = $url ? array_values($url) : array();
+
+            $this->controller = ucfirst($this->controller) . 'Controller';
+
+            require_once '../app/controllers/' . $this->controller . '.php';
+
+            $this->controller = new $this->controller;
+
+            if (isset($url[1])) {
+                if (method_exists($this->controller, $url[1])) {
+                    $this->method = $url[1];
+                    unset($url[1]);
+                }
+            }
+            View::$actionName = $this->method;
+            $this->params = $url ? array_values($url) : array();
+
+            call_user_func_array([$this->controller, $this->method], $this->params);
         
-        call_user_func_array([$this->controller, $this->method], $this->params);
     }
     
     private function parseUrl()
