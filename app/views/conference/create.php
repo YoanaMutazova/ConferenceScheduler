@@ -8,8 +8,12 @@
 .form-control{
     width: 300px;
 }
+.body{
+    margin: 20px;
+}
 </style>
 
+<div class="body">
 <h1>Create new conference</h1>
 
 <form class="form-horizontal" method="post">
@@ -52,4 +56,5 @@
     </div>
   </fieldset>
 </form>
+</div>
 

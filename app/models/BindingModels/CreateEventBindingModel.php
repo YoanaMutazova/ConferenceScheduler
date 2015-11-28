@@ -53,6 +53,9 @@ class CreateEventBindingModel {
         if (trim($end) == '') {
             throw new Exception("Empty end");
         }
+        if (date_create($end) < date_create($this->start)) {
+            throw new Exception("Event cannot end befor it has started");
+        }
         $this->end = $end;
     }
     

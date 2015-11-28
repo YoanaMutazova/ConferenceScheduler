@@ -62,8 +62,7 @@ class userModel
 
         $result = $db->prepare("
             INSERT INTO users (username, password)
-            VALUES (?, ?);
-        ");
+            VALUES (?, ?)");
 
         $result->execute(
             [

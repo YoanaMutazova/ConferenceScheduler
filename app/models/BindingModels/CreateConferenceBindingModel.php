@@ -79,6 +79,9 @@ class CreateConferenceBindingModel {
         if (trim($end) == '') {
             throw new Exception("Empty end");
         }
+        if (date_create($end) < date_create($this->start)) {
+            throw new Exception("Conference cannot end befor it has started");
+        }
         $this->end = $end;
     }
 }

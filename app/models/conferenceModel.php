@@ -3,6 +3,10 @@ declare (strict_types=1);
 
 require_once '/BindingModels/CreateConferenceBindingModel.php';
 require_once '/BindingModels/CreateEventBindingModel.php';
+require_once '/../View.php';
+require_once '/ViewModels/AllConferencesViewModel.php';
+require_once '/ViewModels/ConferenceInfoViewModel.php';
+
 
 class conferenceModel 
 {   
@@ -94,5 +98,61 @@ class conferenceModel
             header("Location: /ConferenceScheduler/public/home/index");
         }
         throw new \Exception('Cannot create event');
+    }
+    
+    public function all()
+    {
+        $db = Database::getInstance('app');
+        
+        $result = $db->prepare("SELECT id,name,start,end FROM conferences WHERE start > ?");
+        $datetime = date("Y-m-d H:i:s");
+        $result->execute([$datetime]);
+        $data = $result->fetchAll();
+        
+        if ($result->rowCount() <= 0) {
+            throw new Exception("No results");
+        }
+        
+        for ($i = 0; $i < count($data); $i++) {
+            $userId = $_SESSION['userId'];
+            $confId = $data[$i]['id'];
+            $check = $db->prepare("SELECT * FROM users_conferences WHERE conference_id = ? AND user_id = ?");
+            $check->execute([$confId,$userId]);
+
+            if ($check->rowCount() > 0) {
+                $data[$i]['checked'] = true;
+            } else {
+                $data[$i]['checked'] = false;
+            }
+        }
+        
+        $model  = new AllConferencesViewModel($data);
+        View::make($model);
+    }
+    
+    public function conferenceInfo(int $id){
+        $db = Database::getInstance('app');
+        
+        $conference = $db->prepare("SELECT * FROM conferences WHERE id = ? ");
+        $conference->execute([$id]);
+        $conferenceResult = $conference->fetch();
+        
+        $events = $db->prepare("Select description, start, end, username 
+                    FROM events e JOIN users u ON e.speaker_id = u.id
+                    where conference_id = ? ");
+        
+        $events->execute([$id]);
+        $eventsResult = $events->fetchAll();
+        
+        $model  = new ConferenceInfoViewModel($conferenceResult, $eventsResult);
+        View::make($model);
+    }
+    
+    public function checkConference(int $id){
+        $db = Database::getInstance('app');
+        
+        $conference = $db->prepare("INSERT INTO users_conferences (user_id, conference_id)
+            VALUES (?, ?)");
+        $conference->execute([$_SESSION['userId'],$id]);
     }
 }
